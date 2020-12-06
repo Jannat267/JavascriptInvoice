@@ -10,7 +10,7 @@
 		<input type="number" class="form-control py-2" name="" id="product" onkeyup="product()">
 		<br>
 		<div>
-			<h6 id="customerName"></h6>
+			<h5 id="customerName" style="margin-top: 5px;"></h5>
 			<p id="date" style="float: right;"></p>
 			<p id="month" style="float: right;"></p>
 		</div><br>
@@ -20,14 +20,16 @@
 			</thead>
 			<tbody id="row">
 			</tbody>
+			
 		</table>
+		<tr > <h6  id="total" style="margin-left:555px;"> </h6></tr>
 		<br><br><br>
+		
 		<h4 id="tax"></h4>
 		<h4 id="payment"></h4>
 		<h4 id="rateview"></h4>
 		<h4 id="qview"></h4>
 		<h4 id="productName"></h4>
-		<h4 id="total"></h4>
     </div>
 	<script>
 		
@@ -45,7 +47,7 @@
                 </select></td>\
 				<td class='rate_col'><input type='number' class='rate' id='' onkeyup='result(this)'></td>\
 				<td class='qty_col'><input type='number' class='quantity' id=''onkeyup='result1(this)'></td>\
-				<td class='price'> 00.00 </td>";
+				<td class='price'> 0.00 </td>";
 				document.getElementById('row').innerHTML = current;
 			}
 		}
@@ -92,14 +94,18 @@
             var pr = parseFloat(rate_col2 * qty).toFixed(2);
             if(isNaN(pr))
             {
-                quantity.parentNode.parentNode.children[3].innerHTML = "00.00";
+                quantity.parentNode.parentNode.children[3].innerHTML = "0.00";
             }
             else
             {
                 quantity.parentNode.parentNode.children[3].innerHTML = pr;
             }
-            var total_col= quantity.parentNode.parentNode.children[3].innerHTML;
-            document.getElementById("total").innerHTML=total_col;
+			var sum=0;
+		   Object.values(document.getElementsByClassName("price")).forEach(function(item,index){
+
+            sum+= parseFloat(item.innerHTML);
+		   });
+           document.getElementById("total").innerHTML=sum.toFixed(2);
 		}
 		// 	document.getElementById("tax").innerHTML = "Include 5% tax " + tax;
 		// 	document.getElementById("payment").innerHTML = "Amount to be paid " + payment;
@@ -107,7 +113,7 @@
 		function customer() {
 			var d = new Date();
 			var customer = document.getElementById('customer').value;
-			document.getElementById("customerName").innerHTML = "<b>Customer Name is: <b>" + customer;
+			document.getElementById("customerName").innerHTML = "Customer Name is: " + customer;
 		}
         function myFunction() {
          var x = document.getElementsByClassName("mySelect").value;
